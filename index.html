@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aspect Map of Huangdao</title>
+
+    <!-- Link to external CSS for better styling -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f3f4f6, #dfe3e8);
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #2f3b52;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 1.2rem;
+            text-align: center;
+            color: #7c8d92;
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+        }
+
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            width: 80%;
+            max-width: 1000px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .content-container:hover {
+            transform: scale(1.03);
+        }
+
+        footer {
+            margin-top: 3rem;
+            font-size: 1rem;
+            color: #4f5b66;
+            text-align: center;
+        }
+
+        .author {
+            color: #2a2e3a;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Button Styling */
+        .view-map-btn {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 1.5rem;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .view-map-btn:hover {
+            background: #45a049;
+        }
+
+        /* Media Queries for responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .content-container {
+                padding: 30px;
+                width: 90%;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="content-container">
+        <h1>Aspect Map of Huangdao</h1>
+        <p>This map visualizes the aspect distribution in the Huangdao district of Qingdao, highlighting the directional slope of the terrain.</p>
+        <a href="file:///C:/Users/26370/Desktop/Huangdao_Map/qgis2web_2026_01_10-16_41_40_140880/index.html#10/35.8326/120.1073" class="view-map-btn">View Interactive Map</a>
+    </div>
+
+    <footer>
+        <p>by <span class="author">UPC Jiajun Chen</span></p>
+    </footer>
+
+</body>
+</html>
