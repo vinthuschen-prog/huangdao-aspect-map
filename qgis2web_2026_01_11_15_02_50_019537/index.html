@@ -1,72 +1,70 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+<head>
+<meta charset="utf-8">
+<title>Aspect Map</title>
+<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
 
-        <!-- 修正后的 CSS 路径 -->
-        <link rel="stylesheet" href="qgis2web_2026_01_11_15_02_50_019537/css/leaflet.css">
-        <link rel="stylesheet" href="qgis2web_2026_01_11_15_02_50_019537/css/L.Control.Layers.Tree.css">
-        <link rel="stylesheet" href="qgis2web_2026_01_11_15_02_50_019537/css/qgis2web.css">
-        <link rel="stylesheet" href="qgis2web_2026_01_11_15_02_50_019537/css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="qgis2web_2026_01_11_15_02_50_019537/css/leaflet.photon.css">
+<!-- CSS 路径修正为正确的子目录 -->
+<link rel="stylesheet" href="./css/leaflet.css">
+<link rel="stylesheet" href="./css/L.Control.Layers.Tree.css">
+<link rel="stylesheet" href="./css/qgis2web.css">
+<link rel="stylesheet" href="./css/fontawesome-all.min.css">
+<link rel="stylesheet" href="./css/leaflet.photon.css">
 
-        <style>
-        html, body, #map {
-            width: 100%;
-            height: 100%;
-            padding: 0;
-            margin: 0;
-        }
-        </style>
+<style>
+html, body, #map {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+</style>
 
-    </head>
-    <body>
-        <div id="map"></div>
+</head>
+<body>
 
-        <!-- 修正后的 JS 路径 -->
-        <script src="qgis2web_2026_01_11_15_02_50_019537/js/qgis2web_expressions.js"></script>
-        <script src="qgis2web_2026_01_11_15_02_50_019537/js/leaflet.js"></script>
-        <script src="qgis2web_2026_01_11_15_02_50_019537/js/L.Control.Layers.Tree.min.js"></script>
-        <script src="qgis2web_2026_01_11_15_02_50_019537/js/leaflet.rotatedMarker.js"></script>
-        <script src="qgis2web_2026_01_11_15_02_50_019537/js/leaflet.pattern.js"></script>
-        <script src="qgis2web_2026_01_11_15_02_50_019537/js/leaflet-hash.js"></script>
-        <script src="qgis2web_2026_01_11_15_02_50_019537/js/Autolinker.min.js"></script>
-        <script src="qgis2web_2026_01_11_15_02_50_019537/js/rbush.min.js"></script>
-        <script src="qgis2web_2026_01_11_15_02_50_019537/js/labelgun.min.js"></script>
-        <script src="qgis2web_2026_01_11_15_02_50_019537/js/labels.js"></script>
-        <script src="qgis2web_2026_01_11_15_02_50_019537/js/leaflet.photon.js"></script>
+<div id="map"></div>
 
-        <!-- 修正后的 Data 路径 -->
-        <script src="qgis2web_2026_01_11_15_02_50_019537/data/_0.js"></script>
+<!-- JS 路径修正为正确的子目录 -->
+<script src="./js/qgis2web_expressions.js"></script>
+<script src="./js/leaflet.js"></script>
+<script src="./js/L.Control.Layers.Tree.min.js"></script>
+<script src="./js/leaflet.rotatedMarker.js"></script>
+<script src="./js/leaflet.pattern.js"></script>
+<script src="./js/leaflet-hash.js"></script>
+<script src="./js/Autolinker.min.js"></script>
+<script src="./js/rbush.min.js"></script>
+<script src="./js/labelgun.min.js"></script>
+<script src="./js/labels.js"></script>
+<script src="./js/leaflet.photon.js"></script>
 
-        <script>
-            var map = L.map('map', {
-                zoomControl:false,
-                maxZoom:28,
-                minZoom:1
-            }).fitBounds([[35.372279041140196,119.19282299416224],[36.29027351849302,121.02171902861897]]);
+<!-- Data 路径修正（非常关键） -->
+<script src="./data/_0.js"></script>
 
-            var hash = new L.Hash(map);
-            map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+<script>
+var map = L.map('map', {
+    zoomControl: true,
+    maxZoom: 28,
+    minZoom: 1
+}).fitBounds([[35.37,119.19],[36.29,121.02]]);
 
-            var layer__0 = new L.geoJson(json__0, {
-                attribution: '',
-                interactive: true,
-                dataVar: 'json__0',
-                layerName: 'layer__0',
-                pane: 'pane__0',
-                onEachFeature: pop__0,
-                style: style__0_0,
-            });
-            map.addLayer(layer__0);
+var hash = new L.Hash(map);
 
-            var img_Aspect_1 = 'qgis2web_2026_01_11_15_02_50_019537/data/Aspect_1.png';
-            var img_bounds_Aspect_1 = [[35.56597222222223,119.50930555555557],[36.145138888888894,120.30902777777779]];
-            var layer_Aspect_1 = new L.imageOverlay(img_Aspect_1, img_bounds_Aspect_1);
-            map.addLayer(layer_Aspect_1);
-        </script>
+map.attributionControl.setPrefix('qgis2web · Leaflet · QGIS');
 
-    </body>
+var layer__0 = new L.geoJson(json__0, {
+    attribution: '',
+    interactive: true
+});
+map.addLayer(layer__0);
+
+var img_Aspect_1 = './data/Aspect_1.png';
+var img_bounds_Aspect_1 = [[35.56597222222223,119.50930555555557],[36.145138888888894,120.30902777777779]];
+var layer_Aspect_1 = new L.imageOverlay(img_Aspect_1, img_bounds_Aspect_1);
+map.addLayer(layer_Aspect_1);
+
+</script>
+
+</body>
 </html>
