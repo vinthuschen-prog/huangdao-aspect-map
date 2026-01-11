@@ -8,12 +8,7 @@
     <!-- Link to external CSS for better styling -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Poppins', sans-serif;
@@ -57,9 +52,7 @@
             transition: transform 0.3s ease-in-out;
         }
 
-        .content-container:hover {
-            transform: scale(1.03);
-        }
+        .content-container:hover { transform: scale(1.03); }
 
         footer {
             margin-top: 3rem;
@@ -74,7 +67,6 @@
             font-size: 1.1rem;
         }
 
-        /* Button Styling */
         .view-map-btn {
             background: #4CAF50;
             color: white;
@@ -87,26 +79,13 @@
             transition: background-color 0.3s ease-in-out;
         }
 
-        .view-map-btn:hover {
-            background: #45a049;
-        }
+        .view-map-btn:hover { background: #45a049; }
 
-        /* Media Queries for responsiveness */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .content-container {
-                padding: 30px;
-                width: 90%;
-            }
-
-            p {
-                font-size: 1rem;
-            }
+            h1 { font-size: 2.5rem; }
+            .content-container { padding: 30px; width: 90%; }
+            p { font-size: 1rem; }
         }
-
     </style>
 </head>
 <body>
@@ -116,26 +95,18 @@
         <p>This map visualizes the aspect distribution in the Huangdao district of Qingdao, highlighting the directional slope of the terrain.</p>
     </div>
 
-<div style="width: 100%; display: flex; justify-content: center; margin-top: 20px;">
-    <iframe 
-        src="qgis2web_2026_01_11-15_02_50_019537/index.html"
-        width="90%"
-        height="700px"
-        style="border:none; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-    </iframe>
-</div>
-
+    <div style="width: 100%; display: flex; justify-content: center; margin-top: 20px;">
+        <iframe
+            src="qgis2web_2026_01_11_15_02_50_019537/index.html"
+            width="90%"
+            height="700px"
+            style="border:none; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        </iframe>
+    </div>
 
     <footer>
         <p>by <span class="author">UPC 2416020217 Jiajun Chen</span></p>
     </footer>
 
-
 </body>
 </html>
-
-
-
-
-
-
