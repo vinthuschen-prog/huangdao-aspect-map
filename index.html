@@ -3,141 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huangdao Aspect & Outdoor Map</title>
+    <title>Huangdao Aspect Map for Outdoor Activity</title>
 
-    <!-- Google Font -->
+    <!-- Google Font + Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Leaflet CSS -->
+    <!-- Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box;}
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(145deg, #e8ecf2, #c6d0dd);
+            font-family: "Poppins", sans-serif;
+            background: #f2f5f7;
             color: #333;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
 
-        /* -------- 页面标题区域 -------- */
+        /* Header */
         .header {
-            text-align: center;
-            padding: 40px 20px 20px;
-        }
-
-        h1 {
-            font-size: 2.8rem;
-            color: #2d3e5e;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: #5e6b78;
-            margin-top: 10px;
-        }
-
-        /* -------- 主内容布局：左天气 / 右地图 -------- */
-        .main-container {
             width: 100%;
+            text-align: center;
+            background: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80") center/cover;
+            padding: 80px 20px;
+            color: white;
+            text-shadow: 0 3px 8px rgba(0,0,0,0.5);
+        }
+        .header h1 {
+            font-size: 3.2rem;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Main layout */
+        .main-container {
             display: flex;
             justify-content: center;
-            padding: 20px;
-            gap: 20px;
+            gap: 25px;
+            padding: 30px;
         }
 
-        /* -------- 天气面板 -------- */
-        .weather-box {
-            width: 320px;
-            background: #fff;
-            padding: 22px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-            height: fit-content;
+        .side-panel {
+            width: 350px;
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
         }
 
-        .weather-title {
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: #2d3e5e;
+        /* Section titles */
+        .section-title {
+            font-size: 1.4rem;
             margin-bottom: 15px;
+            font-weight: 600;
+            color: #2F4F4F;
         }
 
+        /* Weather Box */
+        .weather-box {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border-left: 6px solid #3a7c47;
+        }
         .weather-row {
             display: flex;
             justify-content: space-between;
-            margin: 8px 0;
-            font-size: 1.1rem;
+            margin: 6px 0;
         }
-
         .weather-temp {
-            font-size: 2.4rem;
-            color: #2a5298;
+            font-size: 2rem;
             font-weight: 600;
-            text-align: center;
-            margin: 15px 0;
+            color: #2a5298;
         }
 
-        /* -------- 地图部分 -------- */
+        /* Aspect Legend */
+        .legend-box {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 6px solid #c27b25;
+            margin-bottom: 25px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 6px 0;
+        }
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            border-radius: 3px;
+        }
+
+        /* Outdoor Knowledge */
+        .knowledge-box {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 6px solid #2f6f9f;
+        }
+        .knowledge-box ul {
+            margin-left: 18px;
+            line-height: 1.7;
+        }
+
+        /* Map */
         #map {
-            flex-grow: 1;
+            width: 900px;
             height: 700px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
         }
 
-        /* -------- 底部版权 -------- */
+        /* Footer */
         footer {
-            margin-top: 40px;
+            margin-top: 30px;
             text-align: center;
             padding: 20px;
-            font-size: 1rem;
-            color: #4f5b66;
-        }
-
-        .author {
-            font-weight: bold;
-            color: #2a2e3a;
-        }
-
-        /* -------- 响应式：小屏幕合并布局 -------- */
-        @media (max-width: 900px) {
-            .main-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            #map {
-                width: 95%;
-                height: 500px;
-            }
+            color: #444;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- ***************** HEADER ***************** -->
+    <!-- Header Banner -->
     <div class="header">
-        <h1>Mountain Aspect Map of Huangdao</h1>
-        <p class="subtitle">Slope aspect visualization & outdoor info for hikers and field researchers</p>
+        <h1><i class="fa-solid fa-mountain-sun"></i> Huangdao Aspect Map</h1>
+        <p>Designed for Mountaineers, Cyclists & Hikers — Discover How Slope Direction Shapes Your Outdoor Experience</p>
     </div>
 
-    <!-- ***************** MAIN CONTENT ***************** -->
+    <!-- Main Panel + Map -->
     <div class="main-container">
 
-        <!-- ----- Weather Panel ----- -->
-        <div class="weather-box">
-            <div class="weather-title">🌤 Current Weather</div>
-            <div id="weatherContent">Loading...</div>
+        <!-- Left Panel -->
+        <div class="side-panel">
+
+            <!-- Weather -->
+            <h2 class="section-title">🌤 Current Weather</h2>
+            <div id="weatherBox" class="weather-box">Loading weather...</div>
+
+            <!-- Aspect Legend -->
+            <h2 class="section-title">🧭 Aspect Legend</h2>
+            <div class="legend-box">
+                <div class="legend-item"><div class="legend-color" style="background:#ff0000"></div> North</div>
+                <div class="legend-item"><div class="legend-color" style="background:#ffa500"></div> Northeast</div>
+                <div class="legend-item"><div class="legend-color" style="background:#ffff00"></div> East</div>
+                <div class="legend-item"><div class="legend-color" style="background:#00ff00"></div> Southeast</div>
+                <div class="legend-item"><div class="legend-color" style="background:#00ffff"></div> South</div>
+                <div class="legend-item"><div class="legend-color" style="background:#0000ff"></div> Southwest</div>
+                <div class="legend-item"><div class="legend-color" style="background:#8a2be2"></div> West</div>
+                <div class="legend-item"><div class="legend-color" style="background:#ff00ff"></div> Northwest</div>
+                <div class="legend-item"><div class="legend-color" style="background:#c0c0c0"></div> Flat / No Aspect</div>
+            </div>
+
+            <!-- Outdoor Knowledge -->
+            <h2 class="section-title">⛰ Outdoor Tips</h2>
+            <div class="knowledge-box">
+                <ul>
+                    <li>South-facing slopes are warmer and great for winter hiking.</li>
+                    <li>North-facing slopes stay moist & shaded—watch for slippery surfaces.</li>
+                    <li>East-facing slopes get early sunlight—best for morning runs.</li>
+                    <li>West-facing slopes heat up in afternoon—prepare enough water.</li>
+                    <li>Steep south-facing terrain can melt snow faster—ideal for spring trekking.</li>
+                </ul>
+            </div>
+
         </div>
 
-        <!-- ----- Map ----- -->
+        <!-- Right: Map -->
         <div id="map"></div>
 
     </div>
@@ -145,23 +186,21 @@
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
+    <!-- Map Script -->
     <script>
-        /* -------------------- 初始化地图 -------------------- */
-        var map = L.map('map').setView([35.9, 120.1], 12);
+        var map = L.map('map').setView([35.95, 120.15], 12);
 
-        // OSM 底图
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 18
-        }).addTo(map);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-        // 栅格坡向瓦片（QGIS 生成）
         L.tileLayer('tiles_aspect/{z}/{x}/{y}.png', {
-            minZoom: 8,
+            minZoom: 10,
             maxZoom: 16,
-            opacity: 0.8
+            opacity: 0.85
         }).addTo(map);
+    </script>
 
-        /* -------------------- 天气 API -------------------- */
+    <!-- Weather API Script -->
+    <script>
         const lat = 35.9606;
         const lon = 120.1693;
 
@@ -169,25 +208,17 @@
             .then(res => res.json())
             .then(data => {
                 const w = data.current_weather;
-
-                const html = `
-                    <div class="weather-temp">${w.temperature}°C</div>
-                    <div class="weather-row"><span>Wind Speed:</span> <span>${w.windspeed} km/h</span></div>
-                    <div class="weather-row"><span>Wind Direction:</span> <span>${w.winddirection}°</span></div>
-                    <div class="weather-row"><span>Weather Code:</span> <span>${w.weathercode}</span></div>
+                document.getElementById("weatherBox").innerHTML = `
+                    <div class="weather-row"><span>Temperature:</span><span class="weather-temp">${w.temperature}°C</span></div>
+                    <div class="weather-row"><span>Wind Speed:</span><span>${w.windspeed} km/h</span></div>
+                    <div class="weather-row"><span>Wind Direction:</span><span>${w.winddirection}°</span></div>
+                    <div class="weather-row"><span>Weather Code:</span><span>${w.weathercode}</span></div>
                 `;
-
-                document.getElementById("weatherContent").innerHTML = html;
-            })
-            .catch(() => {
-                document.getElementById("weatherContent").innerHTML =
-                    "<p>Failed to load weather data.</p>";
             });
     </script>
 
-    <!-- ***************** FOOTER ***************** -->
     <footer>
-        <p>by <span class="author">UPC 2416020217 Jiajun Chen</span></p>
+        by <b>UPC 2416020217 Jiajun Chen</b>
     </footer>
 
 </body>
