@@ -3,22 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huangdao Aspect Map for Outdoor Activity</title>
+    <title>Huangdao Aspect & Outdoor Map</title>
 
     <!-- Google Font + Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Leaflet -->
+    <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box;}
 
+        /* Common body style */
         body {
             font-family: "Poppins", sans-serif;
             background: #f2f5f7;
             color: #333;
+            min-height: 100vh;
+            transition: background 0.3s ease;
+        }
+
+        /* Night mode styles */
+        body.night-mode {
+            background: #2f3b52;
+            color: #f7f7f7;
         }
 
         /* Header */
@@ -26,7 +35,7 @@
             width: 100%;
             text-align: center;
             background: url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80") center/cover;
-            padding: 80px 20px;
+            padding: 80px 20px 20px;
             color: white;
             text-shadow: 0 3px 8px rgba(0,0,0,0.5);
         }
@@ -82,44 +91,30 @@
             color: #2a5298;
         }
 
-        /* Aspect Legend */
-        .legend-box {
-            background: #f7fafc;
-            padding: 20px;
-            border-radius: 15px;
-            border-left: 6px solid #c27b25;
-            margin-bottom: 25px;
-        }
-        .legend-item {
-            display: flex;
-            align-items: center;
-            margin: 6px 0;
-        }
-        .legend-color {
-            width: 16px;
-            height: 16px;
-            margin-right: 10px;
-            border-radius: 3px;
-        }
-
-        /* Outdoor Knowledge */
-        .knowledge-box {
-            background: #f7fafc;
-            padding: 20px;
-            border-radius: 15px;
-            border-left: 6px solid #2f6f9f;
-        }
-        .knowledge-box ul {
-            margin-left: 18px;
-            line-height: 1.7;
-        }
-
         /* Map */
         #map {
-            width: 900px;
+            flex-grow: 1;
             height: 700px;
             border-radius: 15px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Night mode toggle button */
+        .mode-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px;
+            background-color: #2a5298;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .mode-toggle:focus {
+            outline: none;
         }
 
         /* Footer */
@@ -127,12 +122,17 @@
             margin-top: 30px;
             text-align: center;
             padding: 20px;
-            color: #444;
+            color: #4f5b66;
         }
     </style>
 </head>
 
 <body>
+
+    <!-- Night mode toggle button -->
+    <button class="mode-toggle" onclick="toggleNightMode()">
+        <i class="fa-solid fa-moon"></i>
+    </button>
 
     <!-- Header Banner -->
     <div class="header">
@@ -197,10 +197,8 @@
             maxZoom: 16,
             opacity: 0.85
         }).addTo(map);
-    </script>
 
-    <!-- Weather API Script -->
-    <script>
+        /* Weather API Script */
         const lat = 35.9606;
         const lon = 120.1693;
 
@@ -215,8 +213,18 @@
                     <div class="weather-row"><span>Weather Code:</span><span>${w.weathercode}</span></div>
                 `;
             });
+
+        /* Night Mode Toggle */
+        function toggleNightMode() {
+            document.body.classList.toggle("night-mode");
+
+            // Change moon to sun icon when toggling
+            const moonIcon = document.querySelector('.fa-moon');
+            moonIcon.classList.toggle('fa-sun');
+        }
     </script>
 
+    <!-- Footer -->
     <footer>
         by <b>UPC 2416020217 Jiajun Chen</b>
     </footer>
