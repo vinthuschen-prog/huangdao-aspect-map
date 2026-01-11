@@ -254,89 +254,6 @@
             moon.classList.toggle("fa-sun");
         }
     </script>
-<script>
-
-// 点击查询坡向
-map.on("click", function (e) {
-    let lat = e.latlng.lat;
-    let lon = e.latlng.lng;
-
-    // 根据像素颜色判断坡向（需对应你的瓦片颜色）
-    getAspectFromTile(e.latlng, function (aspectDeg, aspectText) {
-        let popupContent = `
-            <b>Aspect:</b> ${aspectText} (${aspectDeg}°)<br>
-            <b>Location:</b> ${lat.toFixed(5)}, ${lon.toFixed(5)}
-        `;
-        L.popup()
-            .setLatLng(e.latlng)
-            .setContent(popupContent)
-            .openOn(map);
-    });
-});
-
-// 从瓦片颜色推断坡向
-function getAspectFromTile(latlng, callback) {
-
-    let zoom = map.getZoom();
-    let tileSize = 256;
-
-    // 计算瓦片编号 (x,y)
-    let point = map.project(latlng, zoom);
-    let xTile = Math.floor(point.x / tileSize);
-    let yTile = Math.floor(point.y / tileSize);
-
-    // 计算像素位置（在瓦片内部）
-    let xPixel = Math.floor(point.x % tileSize);
-    let yPixel = Math.floor(point.y % tileSize);
-
-    let tileUrl = `tiles_aspect/${zoom}/${xTile}/${yTile}.png`;
-
-    let img = new Image();
-    img.crossOrigin = "Anonymous";
-    img.src = tileUrl;
-
-    img.onload = function () {
-        let canvas = document.createElement("canvas");
-        canvas.width = tileSize;
-        canvas.height = tileSize;
-        let ctx = canvas.getContext("2d");
-
-        ctx.drawImage(img, 0, 0);
-
-        let pixel = ctx.getImageData(xPixel, yPixel, 1, 1).data;
-        let rgb = `${pixel[0]},${pixel[1]},${pixel[2]}`;
-
-        let aspectInfo = decodeAspect(rgb);
-
-        callback(aspectInfo.deg, aspectInfo.text);
-    };
-
-    img.onerror = function () {
-        callback("–", "No Data");
-    };
-}
-
-// 颜色 → 坡向映射（必须对应你导出的颜色）
-function decodeAspect(rgb) {
-
-    const mapping = {
-        "255,0,0":   { deg: 0, text: "North" },
-        "255,165,0": { deg: 45, text: "Northeast" },
-        "255,255,0": { deg: 90, text: "East" },
-        "0,255,0":   { deg: 135, text: "Southeast" },
-        "0,255,255": { deg: 180, text: "South" },
-        "0,0,255":   { deg: 225, text: "Southwest" },
-        "138,43,226":{ deg: 270, text: "West" },
-        "255,0,255": { deg: 315, text: "Northwest" },
-        "192,192,192": { deg: 999, text: "Flat" }
-    };
-
-    if (mapping[rgb]) return mapping[rgb];
-
-    return { deg: "–", text: "Unknown" };
-}
-
-</script>
 
     <!-- Footer -->
     <footer>
@@ -345,3 +262,4 @@ function decodeAspect(rgb) {
 
 </body>
 </html>
+
