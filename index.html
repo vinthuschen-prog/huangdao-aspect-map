@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aspect Map of Huangdao</title>
 
-    <!-- Link to external CSS for better styling -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -18,7 +19,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             flex-direction: column;
         }
 
@@ -39,20 +39,22 @@
         }
 
         .content-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             background: #fff;
             border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
             padding: 40px;
             width: 80%;
             max-width: 1000px;
-            transition: transform 0.3s ease-in-out;
+            text-align: center;
         }
 
-        .content-container:hover { transform: scale(1.03); }
+        #map {
+            width: 90%;
+            height: 700px;
+            margin-top: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
 
         footer {
             margin-top: 3rem;
@@ -66,28 +68,9 @@
             font-weight: bold;
             font-size: 1.1rem;
         }
-
-        .view-map-btn {
-            background: #4CAF50;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: bold;
-            margin-top: 1.5rem;
-            transition: background-color 0.3s ease-in-out;
-        }
-
-        .view-map-btn:hover { background: #45a049; }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            .content-container { padding: 30px; width: 90%; }
-            p { font-size: 1rem; }
-        }
     </style>
 </head>
+
 <body>
 
     <div class="content-container">
@@ -95,14 +78,27 @@
         <p>This map visualizes the aspect distribution in the Huangdao district of Qingdao, highlighting the directional slope of the terrain.</p>
     </div>
 
-    <div style="width: 100%; display: flex; justify-content: center; margin-top: 20px;">
-        <iframe
-            src="qgis2web_2026_01_11_15_02_50_019537/index.html"
-            width="90%"
-            height="700px"
-            style="border:none; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-        </iframe>
-    </div>
+    <!-- 🌍 这里是地图容器（替换掉原来的 iframe） -->
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+        // 初始化地图中心（你可以修改成准确坐标）
+        var map = L.map('map').setView([35.9, 120.1], 12);
+
+        // 添加 OSM 底图
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18
+        }).addTo(map);
+
+        // 添加你的栅格坡向瓦片
+        L.tileLayer('tiles_aspect/{z}/{x}/{y}.png', {
+            minZoom: 8,
+            maxZoom: 16,
+            opacity: 0.85
+        }).addTo(map);
+    </script>
 
     <footer>
         <p>by <span class="author">UPC 2416020217 Jiajun Chen</span></p>
@@ -110,5 +106,3 @@
 
 </body>
 </html>
-
-
