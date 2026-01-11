@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aspect Map of Huangdao</title>
+    <title>Huangdao Aspect & Outdoor Map</title>
 
+    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
     <style>
@@ -13,93 +16,176 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f3f4f6, #dfe3e8);
+            background: linear-gradient(145deg, #e8ecf2, #c6d0dd);
             color: #333;
-            line-height: 1.6;
             display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* -------- 页面标题区域 -------- */
+        .header {
+            text-align: center;
+            padding: 40px 20px 20px;
         }
 
         h1 {
-            font-size: 3rem;
-            text-align: center;
-            margin-bottom: 1rem;
-            color: #2f3b52;
-            text-transform: uppercase;
-        }
-
-        p {
-            font-size: 1.2rem;
-            text-align: center;
-            color: #7c8d92;
-            margin-bottom: 2rem;
+            font-size: 2.8rem;
+            color: #2d3e5e;
+            font-weight: 600;
             letter-spacing: 1px;
         }
 
-        .content-container {
+        .subtitle {
+            font-size: 1.2rem;
+            color: #5e6b78;
+            margin-top: 10px;
+        }
+
+        /* -------- 主内容布局：左天气 / 右地图 -------- */
+        .main-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        /* -------- 天气面板 -------- */
+        .weather-box {
+            width: 320px;
             background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-            padding: 40px;
-            width: 80%;
-            max-width: 1000px;
+            padding: 22px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+            height: fit-content;
+        }
+
+        .weather-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #2d3e5e;
+            margin-bottom: 15px;
+        }
+
+        .weather-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 1.1rem;
+        }
+
+        .weather-temp {
+            font-size: 2.4rem;
+            color: #2a5298;
+            font-weight: 600;
             text-align: center;
+            margin: 15px 0;
         }
 
+        /* -------- 地图部分 -------- */
         #map {
-            width: 90%;
+            flex-grow: 1;
             height: 700px;
-            margin-top: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
 
+        /* -------- 底部版权 -------- */
         footer {
-            margin-top: 3rem;
+            margin-top: 40px;
+            text-align: center;
+            padding: 20px;
             font-size: 1rem;
             color: #4f5b66;
-            text-align: center;
         }
 
         .author {
-            color: #2a2e3a;
             font-weight: bold;
-            font-size: 1.1rem;
+            color: #2a2e3a;
+        }
+
+        /* -------- 响应式：小屏幕合并布局 -------- */
+        @media (max-width: 900px) {
+            .main-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #map {
+                width: 95%;
+                height: 500px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="content-container">
+    <!-- ***************** HEADER ***************** -->
+    <div class="header">
         <h1>Mountain Aspect Map of Huangdao</h1>
-        <p>This map visualizes the aspect distribution in the Huangdao district of Qingdao, highlighting the directional slope of the terrain.</p>
+        <p class="subtitle">Slope aspect visualization & outdoor info for hikers and field researchers</p>
     </div>
 
-    <!-- 🌍 这里是地图容器（替换掉原来的 iframe） -->
-    <div id="map"></div>
+    <!-- ***************** MAIN CONTENT ***************** -->
+    <div class="main-container">
 
+        <!-- ----- Weather Panel ----- -->
+        <div class="weather-box">
+            <div class="weather-title">🌤 Current Weather</div>
+            <div id="weatherContent">Loading...</div>
+        </div>
+
+        <!-- ----- Map ----- -->
+        <div id="map"></div>
+
+    </div>
+
+    <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
     <script>
-        // 初始化地图中心（你可以修改成准确坐标）
+        /* -------------------- 初始化地图 -------------------- */
         var map = L.map('map').setView([35.9, 120.1], 12);
 
-        // 添加 OSM 底图
+        // OSM 底图
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 18
         }).addTo(map);
 
-        // 添加你的栅格坡向瓦片
+        // 栅格坡向瓦片（QGIS 生成）
         L.tileLayer('tiles_aspect/{z}/{x}/{y}.png', {
             minZoom: 8,
             maxZoom: 16,
-            opacity: 0.85
+            opacity: 0.8
         }).addTo(map);
+
+        /* -------------------- 天气 API -------------------- */
+        const lat = 35.9606;
+        const lon = 120.1693;
+
+        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
+            .then(res => res.json())
+            .then(data => {
+                const w = data.current_weather;
+
+                const html = `
+                    <div class="weather-temp">${w.temperature}°C</div>
+                    <div class="weather-row"><span>Wind Speed:</span> <span>${w.windspeed} km/h</span></div>
+                    <div class="weather-row"><span>Wind Direction:</span> <span>${w.winddirection}°</span></div>
+                    <div class="weather-row"><span>Weather Code:</span> <span>${w.weathercode}</span></div>
+                `;
+
+                document.getElementById("weatherContent").innerHTML = html;
+            })
+            .catch(() => {
+                document.getElementById("weatherContent").innerHTML =
+                    "<p>Failed to load weather data.</p>";
+            });
     </script>
 
+    <!-- ***************** FOOTER ***************** -->
     <footer>
         <p>by <span class="author">UPC 2416020217 Jiajun Chen</span></p>
     </footer>
