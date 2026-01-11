@@ -15,7 +15,6 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box;}
 
-        /* Common body style */
         body {
             font-family: "Poppins", sans-serif;
             background: #f2f5f7;
@@ -24,7 +23,7 @@
             transition: background 0.3s ease;
         }
 
-        /* Night mode styles */
+        /* Night mode */
         body.night-mode {
             background: #2f3b52;
             color: #f7f7f7;
@@ -64,15 +63,15 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.1);
         }
 
-        /* Section titles */
         .section-title {
             font-size: 1.4rem;
             margin-bottom: 15px;
             font-weight: 600;
             color: #2F4F4F;
+            cursor: help;
         }
 
-        /* Weather Box */
+        /* Weather */
         .weather-box {
             background: #f7fafc;
             padding: 20px;
@@ -91,6 +90,38 @@
             color: #2a5298;
         }
 
+        /* Legend */
+        .legend-box {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 6px solid #c27b25;
+            margin-bottom: 25px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 6px 0;
+        }
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            border-radius: 3px;
+        }
+
+        /* Knowledge */
+        .knowledge-box {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 6px solid #2f6f9f;
+        }
+        .knowledge-box ul {
+            margin-left: 18px;
+            line-height: 1.7;
+        }
+
         /* Map */
         #map {
             flex-grow: 1;
@@ -99,7 +130,7 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
 
-        /* Night mode toggle button */
+        /* Night mode toggle */
         .mode-toggle {
             position: absolute;
             top: 20px;
@@ -112,10 +143,7 @@
             cursor: pointer;
             font-size: 1.5rem;
         }
-
-        .mode-toggle:focus {
-            outline: none;
-        }
+        .mode-toggle:focus { outline: none;}
 
         /* Footer */
         footer {
@@ -129,57 +157,62 @@
 
 <body>
 
-    <!-- Night mode toggle button -->
-    <button class="mode-toggle" onclick="toggleNightMode()">
+    <!-- Night mode toggle -->
+    <button class="mode-toggle" onclick="toggleNightMode()" title="夜间模式（Dark Mode）">
         <i class="fa-solid fa-moon"></i>
     </button>
 
-    <!-- Header Banner -->
+    <!-- Header -->
     <div class="header">
-        <h1><i class="fa-solid fa-mountain-sun"></i> Huangdao Aspect Map</h1>
-        <p>Designed for Mountaineers, Cyclists & Hikers — Discover How Slope Direction Shapes Your Outdoor Experience</p>
+        <h1 title="黄岛区坡向分布图">
+            <i class="fa-solid fa-mountain-sun"></i> Huangdao Aspect Map
+        </h1>
+
+        <p title="为登山、骑行和徒步爱好者设计 —— 了解坡向如何影响你的户外体验">
+            Designed for Mountaineers, Cyclists & Hikers — Discover How Slope Direction Shapes Your Outdoor Experience
+        </p>
     </div>
 
-    <!-- Main Panel + Map -->
+    <!-- Main Content -->
     <div class="main-container">
 
-        <!-- Left Panel -->
+        <!-- Side Panel -->
         <div class="side-panel">
 
             <!-- Weather -->
-            <h2 class="section-title">🌤 Current Weather</h2>
+            <h2 class="section-title" title="当前天气">🌤 Current Weather</h2>
             <div id="weatherBox" class="weather-box">Loading weather...</div>
 
-            <!-- Aspect Legend -->
-            <h2 class="section-title">🧭 Aspect Legend</h2>
+            <!-- Legend -->
+            <h2 class="section-title" title="坡向图例">🧭 Aspect Legend</h2>
             <div class="legend-box">
-                <div class="legend-item"><div class="legend-color" style="background:#ff0000"></div> North</div>
-                <div class="legend-item"><div class="legend-color" style="background:#ffa500"></div> Northeast</div>
-                <div class="legend-item"><div class="legend-color" style="background:#ffff00"></div> East</div>
-                <div class="legend-item"><div class="legend-color" style="background:#00ff00"></div> Southeast</div>
-                <div class="legend-item"><div class="legend-color" style="background:#00ffff"></div> South</div>
-                <div class="legend-item"><div class="legend-color" style="background:#0000ff"></div> Southwest</div>
-                <div class="legend-item"><div class="legend-color" style="background:#8a2be2"></div> West</div>
-                <div class="legend-item"><div class="legend-color" style="background:#ff00ff"></div> Northwest</div>
-                <div class="legend-item"><div class="legend-color" style="background:#c0c0c0"></div> Flat / No Aspect</div>
+                <div class="legend-item"><div class="legend-color" style="background:#ff0000"></div> North（北）</div>
+                <div class="legend-item"><div class="legend-color" style="background:#ffa500"></div> Northeast（东北）</div>
+                <div class="legend-item"><div class="legend-color" style="background:#ffff00"></div> East（东）</div>
+                <div class="legend-item"><div class="legend-color" style="background:#00ff00"></div> Southeast（东南）</div>
+                <div class="legend-item"><div class="legend-color" style="background:#00ffff"></div> South（南）</div>
+                <div class="legend-item"><div class="legend-color" style="background:#0000ff"></div> Southwest（西南）</div>
+                <div class="legend-item"><div class="legend-color" style="background:#8a2be2"></div> West（西）</div>
+                <div class="legend-item"><div class="legend-color" style="background:#ff00ff"></div> Northwest（西北）</div>
+                <div class="legend-item"><div class="legend-color" style="background:#c0c0c0"></div> Flat / No Aspect（平地 / 无坡向）</div>
             </div>
 
             <!-- Outdoor Knowledge -->
-            <h2 class="section-title">⛰ Outdoor Tips</h2>
+            <h2 class="section-title" title="户外运动提示">⛰ Outdoor Tips</h2>
             <div class="knowledge-box">
                 <ul>
-                    <li>South-facing slopes are warmer and great for winter hiking.</li>
-                    <li>North-facing slopes stay moist & shaded—watch for slippery surfaces.</li>
-                    <li>East-facing slopes get early sunlight—best for morning runs.</li>
-                    <li>West-facing slopes heat up in afternoon—prepare enough water.</li>
-                    <li>Steep south-facing terrain can melt snow faster—ideal for spring trekking.</li>
+                    <li title="南坡温暖，适合冬季徒步">South-facing slopes are warmer and great for winter hiking.</li>
+                    <li title="北坡湿润阴凉，小心地面湿滑">North-facing slopes stay moist & shaded—watch for slippery surfaces.</li>
+                    <li title="东坡受光早，适合晨跑">East-facing slopes get early sunlight—best for morning runs.</li>
+                    <li title="西坡下午炎热，需准备足够水">West-facing slopes heat up in afternoon—prepare enough water.</li>
+                    <li title="南坡积雪融化快，适合春季登山">Steep south-facing terrain melts snow faster—ideal for spring trekking.</li>
                 </ul>
             </div>
 
         </div>
 
-        <!-- Right: Map -->
-        <div id="map"></div>
+        <!-- Map -->
+        <div id="map" title="交互式坡向地图（Interactive Aspect Map）"></div>
 
     </div>
 
@@ -217,12 +250,93 @@
         /* Night Mode Toggle */
         function toggleNightMode() {
             document.body.classList.toggle("night-mode");
-
-            // Change moon to sun icon when toggling
-            const moonIcon = document.querySelector('.fa-moon');
-            moonIcon.classList.toggle('fa-sun');
+            const moon = document.querySelector(".fa-moon");
+            moon.classList.toggle("fa-sun");
         }
     </script>
+<script>
+
+// 点击查询坡向
+map.on("click", function (e) {
+    let lat = e.latlng.lat;
+    let lon = e.latlng.lng;
+
+    // 根据像素颜色判断坡向（需对应你的瓦片颜色）
+    getAspectFromTile(e.latlng, function (aspectDeg, aspectText) {
+        let popupContent = `
+            <b>Aspect:</b> ${aspectText} (${aspectDeg}°)<br>
+            <b>Location:</b> ${lat.toFixed(5)}, ${lon.toFixed(5)}
+        `;
+        L.popup()
+            .setLatLng(e.latlng)
+            .setContent(popupContent)
+            .openOn(map);
+    });
+});
+
+// 从瓦片颜色推断坡向
+function getAspectFromTile(latlng, callback) {
+
+    let zoom = map.getZoom();
+    let tileSize = 256;
+
+    // 计算瓦片编号 (x,y)
+    let point = map.project(latlng, zoom);
+    let xTile = Math.floor(point.x / tileSize);
+    let yTile = Math.floor(point.y / tileSize);
+
+    // 计算像素位置（在瓦片内部）
+    let xPixel = Math.floor(point.x % tileSize);
+    let yPixel = Math.floor(point.y % tileSize);
+
+    let tileUrl = `tiles_aspect/${zoom}/${xTile}/${yTile}.png`;
+
+    let img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.src = tileUrl;
+
+    img.onload = function () {
+        let canvas = document.createElement("canvas");
+        canvas.width = tileSize;
+        canvas.height = tileSize;
+        let ctx = canvas.getContext("2d");
+
+        ctx.drawImage(img, 0, 0);
+
+        let pixel = ctx.getImageData(xPixel, yPixel, 1, 1).data;
+        let rgb = `${pixel[0]},${pixel[1]},${pixel[2]}`;
+
+        let aspectInfo = decodeAspect(rgb);
+
+        callback(aspectInfo.deg, aspectInfo.text);
+    };
+
+    img.onerror = function () {
+        callback("–", "No Data");
+    };
+}
+
+// 颜色 → 坡向映射（必须对应你导出的颜色）
+function decodeAspect(rgb) {
+
+    const mapping = {
+        "255,0,0":   { deg: 0, text: "North" },
+        "255,165,0": { deg: 45, text: "Northeast" },
+        "255,255,0": { deg: 90, text: "East" },
+        "0,255,0":   { deg: 135, text: "Southeast" },
+        "0,255,255": { deg: 180, text: "South" },
+        "0,0,255":   { deg: 225, text: "Southwest" },
+        "138,43,226":{ deg: 270, text: "West" },
+        "255,0,255": { deg: 315, text: "Northwest" },
+        "192,192,192": { deg: 999, text: "Flat" }
+    };
+
+    if (mapping[rgb]) return mapping[rgb];
+
+    return { deg: "–", text: "Unknown" };
+}
+
+</script>
 
     <!-- Footer -->
     <footer>
